@@ -1,4 +1,6 @@
-﻿using MyVet.Common.Models;
+﻿using MyVet.Common.Helpers;
+using MyVet.Common.Models;
+using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 
@@ -16,11 +18,8 @@ namespace MyVet.Prism.ViewModels
         public DelegateCommand SelectPetCommand => _selectPetCommand ?? (_selectPetCommand = new DelegateCommand(SelectPet));
         private async void SelectPet()
         {
-            var parameters = new NavigationParameters
-            {
-                { "pet", this }
-            };
-            await _navigationService.NavigateAsync("HistoriesPage", parameters);
+            Settings.Pet = JsonConvert.SerializeObject(this);
+            await _navigationService.NavigateAsync("PetTabbedPage");
 
         }
     }

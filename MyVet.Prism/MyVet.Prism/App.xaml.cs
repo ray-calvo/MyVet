@@ -22,6 +22,7 @@ namespace MyVet.Prism
 
         protected override async void OnInitialized()
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTM5Nzk0QDMxMzcyZTMyMmUzMGpyVitUdkh3Y0QwQ3B5ZytnR2l0SXE4MkVZaUFORGxFTEV6V2VXS1h5ajQ9");
             InitializeComponent();
 
             await NavigationService.NavigateAsync("NavigationPage/LoginPage");
@@ -34,6 +35,6 @@ namespace MyVet.Prism
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<PetsPage, PetsPageViewModel>();
             
-containerRegistry.RegisterForNavigation<PetPage, PetPageViewModel>();        containerRegistry.RegisterForNavigation<HistoriesPage, HistoriesPageViewModel>();containerRegistry.RegisterForNavigation<HistoryPage, HistoryPageViewModel>();}
+containerRegistry.RegisterForNavigation<PetPage, PetPageViewModel>();        containerRegistry.RegisterForNavigation<HistoriesPage, HistoriesPageViewModel>();containerRegistry.RegisterForNavigation<HistoryPage, HistoryPageViewModel>();containerRegistry.RegisterForNavigation<PetTabbedPage, PetTabbedPageViewModel>();}
     }
 }

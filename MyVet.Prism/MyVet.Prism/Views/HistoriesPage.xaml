@@ -4,6 +4,7 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="MyVet.Prism.Views.HistoriesPage"
+             IconImageSource="ic_action_list_alt"
              Title="{Binding Title}">
 
     <StackLayout
@@ -64,7 +65,7 @@
                                 VerticalOptions="Center"/>
                             <Image
                                 Grid.Column="3"
-                                Source="ic_chevron_right"/>
+                                Source="ic_action_chevron_right"/>
 
                         </Grid>
                     </ViewCell>
