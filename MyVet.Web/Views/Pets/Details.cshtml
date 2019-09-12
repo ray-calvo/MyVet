@@ -12,7 +12,7 @@
     <h4>Details</h4>
     <hr />
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-4">
             <dl class="dl-horizontal">
                 <dt>
                     Owner
@@ -57,13 +57,12 @@
 <div>
     <a asp-action="EditPet" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
     <a asp-action="AddHistory" asp-route-id="@Model.Id" class="btn btn-primary">Add History</a>
-    <a asp-action="Details" asp-route-id="@Model.Owner.Id" class="btn btn-success">Back to Owner</a>
+    <a asp-action="Index" asp-route-id="@Model.Id" class="btn btn-success">Back to List</a>
 </div>
-<h4>History</h4>
 <hr />
 @if (Model.Histories.Count == 0)
 {
-    <h5>Not histories added yet.</h5>
+    <h4>Not histories added yet.</h4>
 }
 else
 {
@@ -71,7 +70,7 @@ else
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Histories</h3>
+                    <h3 class="panel-title">History</h3>
                 </div>
                 <div class="panel-body">
                     <table class="table table-hover table-responsive table-striped" id="MyTable">
@@ -97,7 +96,7 @@ else
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.DateLocal)
+                                        @Html.DisplayFor(modelItem => item.Date)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.ServiceType.Name)
@@ -122,23 +121,45 @@ else
     </div>
 }
 
-<partial name="_DeleteDialog" />
+<!--Delete Item-->
+<div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to delete the record?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="btnYesDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#MyTable').DataTable();
-            // Delete item
-            var item_to_delete;
-            $('.deleteItem').click((e) => {
-                item_to_delete = e.currentTarget.dataset.id;
-            });
-            $("#btnYesDelete").click(function () {
-                window.location.href = '/Owners/DeleteHistory/' + item_to_delete;
-            });
-        });
+    	$(document).ready(function () {
+        	$('#MyTable').DataTable();
+
+        	// Delete item
+        	var item_to_delete;
+
+        	$('.deleteItem').click((e) => {
+            	item_to_delete = e.currentTarget.dataset.id;
+        	});
+
+        	$("#btnYesDelete").click(function () {
+            	window.location.href = '/Pets/DeleteHistory/' + item_to_delete;
+        	});
+    	});
     </script>
 }
