@@ -1,5 +1,8 @@
-﻿using MyVet.Common.Models;
+﻿using System;
+using MyVet.Common.Helpers;
+using MyVet.Common.Models;
 using MyVet.Common.Services;
+using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 namespace MyVet.Prism.ViewModels
@@ -12,6 +15,8 @@ namespace MyVet.Prism.ViewModels
         private bool _isRunning;
         private bool _isEnabled;
         private DelegateCommand _loginCommand;
+        private DelegateCommand _registerCommand;
+        private DelegateCommand _forgotPasswordCommand;
 
         public LoginPageViewModel(
             INavigationService navigationService,
@@ -19,11 +24,19 @@ namespace MyVet.Prism.ViewModels
         {
             _navigationService = navigationService;
             _apiService = apiService;
+
             Title = "My Vet - Login";
             IsEnabled = true;
+            IsRemember = true; 
         }
 
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(Login));
+        public DelegateCommand RegisterCommand => _registerCommand ?? (_registerCommand = new DelegateCommand(Register));
+        public DelegateCommand ForgotPasswordCommand => _forgotPasswordCommand ?? (_forgotPasswordCommand = new DelegateCommand(ForgotPassword));
+
+        
+
+        public bool IsRemember { get; set; }
 
         public string Email { get; set; }
 
@@ -108,16 +121,29 @@ namespace MyVet.Prism.ViewModels
             }
 
             var owner = response2.Result;
-            var parameters = new NavigationParameters
-            {
-                { "owner", owner }
-            };
+            Settings.Owner = JsonConvert.SerializeObject(owner);
+            Settings.Token = JsonConvert.SerializeObject(token);
+            Settings.IsRemembered = IsRemember;
+
+           
 
             IsEnabled = true;
             IsRunning = false;
 
-            await _navigationService.NavigateAsync("PetsPage", parameters);
+            await _navigationService.NavigateAsync("/VeterinaryMasterDetailPage/NavigationPage/PetsPage");
+
             Password = string.Empty;
         }
+
+        private async void Register()
+        {
+            await _navigationService.NavigateAsync("RegisterPage");
+        }
+
+        private async void ForgotPassword()
+        {
+            await _navigationService.NavigateAsync("RememberPassword");
+        }
+
     }
 }

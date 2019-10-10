@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="MyVet.Prism.Views.ProfilePage"
+             BackgroundColor="{StaticResource colorBackgroud}"
+             Title="{Binding Title}">
+
+    <ScrollView>
+        <AbsoluteLayout>
+            <StackLayout
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+            	AbsoluteLayout.LayoutFlags="All"
+    	        Padding="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                	    Grid.Row="0"
+                	    Grid.Column="0"
+                	    Text="Document"
+                	    VerticalOptions="Center"/>
+                    <Entry
+                	    Grid.Row="0"
+                	    Grid.Column="1"
+                	    Placeholder="Enter your document..."
+                	    Text="{Binding Owner.Document}"
+                        Visual="Material"    />
+
+                    <Label
+                	    Grid.Row="1"
+                	    Grid.Column="0"
+                	    Text="FirstName"
+                	    VerticalOptions="Center"/>
+                    <Entry
+                	    Grid.Row="1"
+                	    Grid.Column="1"
+                	    Placeholder="Enter your firstName"
+                	    Text="{Binding Owner.FirstName}"
+                        Visual="Material"/>
+
+                    <Label
+                	    Grid.Row="2"
+                	    Grid.Column="0"
+                	    Text="LastName"
+                	    VerticalOptions="Center"/>
+                    <Entry
+                	    Grid.Row="2"
+                	    Grid.Column="1"
+                	    Placeholder="Enter your LastName"
+                	    Text="{Binding Owner.LastName}"
+                        Visual="Material"    />
+
+                    <Label
+                	    Grid.Row="3"
+                	    Grid.Column="0"
+                	    Text="Address"
+                	    VerticalOptions="Center"/>
+                    <Entry
+                	    Grid.Row="3"
+                	    Grid.Column="1"
+                	    Placeholder="Enter your "
+                	    Text="{Binding Owner.Address}"
+                        Visual="Material"    />
+
+                    <Label
+                	    Grid.Row="4"
+                	    Grid.Column="0"
+                	    Text="Phone"
+                	    VerticalOptions="Center"/>
+                    <Entry
+                	    Grid.Row="4"
+                	    Grid.Column="1"
+                	    Placeholder="Enter your phonenumber"
+                        Keyboard="Telephone"
+                	    Text="{Binding Owner.PhoneNumber}"
+                        Visual="Material"/>
+
+                </Grid>
+                <StackLayout
+            	    Orientation="Horizontal"
+                    VerticalOptions="EndAndExpand">
+                    <Button
+                        FontSize="12"
+                	    Command="{Binding SaveCommand}"
+                	    HorizontalOptions="FillAndExpand"
+                	    IsEnabled="{Binding IsEnabled}"
+                	    Text="Save"
+                        Visual="Material"
+                        WidthRequest="150"
+                        HeightRequest="46"/>
+
+                    <Button
+                        FontSize="12"
+                	    Command="{Binding ChangePasswordCommand}"
+                	    HorizontalOptions="FillAndExpand"
+                	    IsEnabled="{Binding IsEnabled}"
+                	    Style="{StaticResource secondaryButton}"
+                	    Text="ChangePassword"
+                        Visual="Material"
+                        WidthRequest="150"
+                        HeightRequest="46"/>
+                </StackLayout>
+            </StackLayout>
+            <busyindicator:SfBusyIndicator  
+                	AnimationType="Gear"
+                	AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
+                	AbsoluteLayout.LayoutFlags="All"
+                    BackgroundColor="{StaticResource colorDanger}"
+                	HorizontalOptions="Center"
+                	TextColor="{StaticResource colorFontInverse}"
+                	IsVisible="{Binding IsRunning}"
+                	Title="Saving..."
+                	VerticalOptions="Center"
+                	ViewBoxWidth="80"
+                	ViewBoxHeight="80"  />
+        </AbsoluteLayout>     
+    </ScrollView>
+
+
+</ContentPage>

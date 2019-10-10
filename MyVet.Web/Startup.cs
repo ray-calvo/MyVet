@@ -86,6 +86,7 @@ namespace MyVet.Web
             services.AddScoped<IConverterHelper, ConverterHelper>();
             services.AddScoped<IImageHelper, ImageHelper>();
             services.AddScoped<IMailHelper, MailHelper>();
+            services.AddScoped<IAgendaHelper, AgendaHelper>();
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

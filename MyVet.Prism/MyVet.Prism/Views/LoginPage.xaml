@@ -5,7 +5,9 @@
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="MyVet.Prism.Views.LoginPage"
-             Title="{Binding Title}">
+             BackgroundColor="{StaticResource colorBackgroud}"
+             Title="{Binding Title}"
+             >
     <ScrollView>
         <AbsoluteLayout>
             <StackLayout
@@ -13,43 +15,95 @@
             	AbsoluteLayout.LayoutFlags="All"
     	        Padding="10">
                 <Image
-                    HeightRequest="230"
+                    HeightRequest="180"
                     Source="Logo_Nuske_App"/>
                 <Label
-        	        Text="Email"/>
+                    FontSize="10"
+                    HorizontalOptions="Start"
+        	        Text="Email"
+                    TextColor="Black"/>
                 <Entry
+                    BackgroundColor="#90CAF9"
         	        Keyboard="Email"
         	        Placeholder="Enter your email..."
-        	        Text="{Binding Email}"/>
+        	        Text="{Binding Email}"
+                    TextColor="White"
+                    Visual="Material"/>
                 <Label
-        	        Text="Password"/>
+                    FontSize="10"
+                    HorizontalOptions="Start"
+        	        Text="Password"
+                    TextColor="Black"/>
                 <Entry
+                    BackgroundColor="#90CAF9"
         	        IsPassword="True"
         	        Placeholder="Enter your password..."
-        	        Text="{Binding Password}"/>
-                
-                <Button
-                    BorderRadius="23"
-                    BackgroundColor="Red"
-                    Command="{Binding LoginCommand}"
-        	        IsEnabled="{Binding IsEnabled}"
-        	        Text="Login"
+        	        Text="{Binding Password}"
                     TextColor="White"
-                    HeightRequest="46"
-                    VerticalOptions="EndAndExpand"/>
+                    Visual="Material"/>
+                <StackLayout
+	                HorizontalOptions="Center"
+	                Orientation="Horizontal">   
+                <Label
+    	            Text="Remember me in this device"
+                    VerticalOptions="Center"/>
+                <CheckBox
+    	                IsChecked="{Binding IsRemember}"/>
+                </StackLayout>
+                <Label
+	                HorizontalOptions="Center"
+	                Text="Forgot your password?"
+	                TextColor="{StaticResource colorAccent}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+
+
+
+                <StackLayout
+                    Orientation="Horizontal"
+                    VerticalOptions="EndAndExpand">
+                    <Button
+                        BorderColor="White"                       
+                        BorderWidth="9"
+                        BackgroundColor="{StaticResource colorPrimary}"
+                        Command="{Binding LoginCommand}"
+        	            IsEnabled="{Binding IsEnabled}"                        
+        	            Text="Login"
+                        TextColor="{StaticResource colorFontInverse}"                                             
+                        WidthRequest="150"
+                        Visual="Material"
+                        HeightRequest="46"/>
+                    
+                    <Button
+                        BorderColor="White"                        
+                        BorderWidth="9"
+                        BackgroundColor="{StaticResource colorPrimary}"
+                        Command="{Binding RegisterCommand}"
+                        Style="{StaticResource secondaryButton}"
+        	            IsEnabled="{Binding IsEnabled}"                        
+        	            Text="Registrar"
+                        TextColor="{StaticResource colorFontInverse}"                                               
+                        WidthRequest="150"
+                        Visual="Material"
+                        HeightRequest="46"/>
+                </StackLayout>
+                
+                
             </StackLayout>
             <busyindicator:SfBusyIndicator  
                 	AnimationType="Gear"
                 	AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
                 	AbsoluteLayout.LayoutFlags="All"
-                	BackgroundColor="OrangeRed"
+                    BackgroundColor="{StaticResource colorDanger}"
                 	HorizontalOptions="Center"
-                	TextColor="White"
+                	TextColor="{StaticResource colorFontInverse}"
                 	IsVisible="{Binding IsRunning}"
                 	Title="Loading..."
                 	VerticalOptions="Center"
                 	ViewBoxWidth="80"
-                	ViewBoxHeight="80" />
+                	ViewBoxHeight="80"  />
         </AbsoluteLayout>        
     </ScrollView>
 </ContentPage>

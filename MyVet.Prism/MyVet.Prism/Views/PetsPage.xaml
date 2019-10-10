@@ -5,8 +5,14 @@
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="MyVet.Prism.Views.PetsPage"
-             BackgroundColor="Silver"
-             Title="{Binding Title}">
+             BackgroundColor="{StaticResource colorBackgroud}"
+             Title="{Binding Title}"
+             Visual="Material">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="ic_action_add_circle" Command="{Binding AddPetCommand}"/>
+    </ContentPage.ToolbarItems>
+
 
     <ScrollView>
         <StackLayout

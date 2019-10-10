@@ -10,6 +10,51 @@
             <!-- Parameters -->
             <x:String x:Key="UrlAPI">https://myvetwebnuske.azurewebsites.net/</x:String>
 
+            <!-- Colors -->
+            <Color x:Key="colorBackgroud">#F2F2F2</Color>
+            <Color x:Key="colorPrimary">#0468BF</Color>
+            <Color x:Key="colorSecondary">#067302</Color>
+            <Color x:Key="colorDanger">#FF5004</Color>
+            <Color x:Key="colorAccent">#FF8001</Color>
+            <Color x:Key="colorFont">#0468BF</Color>
+            <Color x:Key="colorFontInverse">#F2F2F2</Color>
+
+            <!-- Styles -->
+            <Style TargetType="Button">
+                <Setter Property="BorderColor" Value="White" />
+                <Setter Property="BorderWidth" Value="9" />
+                <Setter Property="BackgroundColor" Value="{StaticResource colorPrimary}" />
+                <Setter Property="BorderRadius" Value="15" />                
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="TextColor" Value="{StaticResource colorFontInverse}" />
+            </Style>
+            
+            <Style x:Key="DangerButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource colorDanger}" />
+                <Setter Property="TextColor" Value="{StaticResource colorFontInverse}" />
+            </Style>
+
+            <Style x:Key="secondaryButton" TargetType="Button">
+                <Setter Property="BorderColor" Value="White" />
+                <Setter Property="BorderWidth" Value="9" />
+                <Setter Property="BackgroundColor" Value="{StaticResource colorSecondary}" />
+                <Setter Property="BorderRadius" Value="15" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="TextColor" Value="{StaticResource colorFontInverse}" />
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource colorFont}"  />
+            </Style>
+
+            <Style TargetType="Entry">
+                <Setter Property="TextColor" Value="White"  />
+                <Setter Property="BackgroundColor" Value="#90CAF9"/>
+                <Setter Property="FontSize" Value="15"/>
+            </Style>
+
+
+
         </ResourceDictionary>
 
     </Application.Resources>

@@ -5,6 +5,10 @@ using MyVet.Prism.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using MyVet.Common.Services;
+using Newtonsoft.Json;
+using MyVet.Common.Models;
+using MyVet.Common.Helpers;
+using System;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace MyVet.Prism
@@ -25,7 +29,16 @@ namespace MyVet.Prism
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTM5Nzk0QDMxMzcyZTMyMmUzMGpyVitUdkh3Y0QwQ3B5ZytnR2l0SXE4MkVZaUFORGxFTEV6V2VXS1h5ajQ9");
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/LoginPage");
+            var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+            if (Settings.IsRemembered && token?.Expiration > DateTime.Now)
+            {
+                await NavigationService.NavigateAsync("/VeterinaryMasterDetailPage/NavigationPage/PetsPage");
+            }
+            else
+            {
+                await NavigationService.NavigateAsync("/NavigationPage/LoginPage");
+            }
+
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -33,8 +46,20 @@ namespace MyVet.Prism
             containerRegistry.Register<IApiService, ApiService>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
-            containerRegistry.RegisterForNavigation<PetsPage, PetsPageViewModel>();
-            
-containerRegistry.RegisterForNavigation<PetPage, PetPageViewModel>();        containerRegistry.RegisterForNavigation<HistoriesPage, HistoriesPageViewModel>();containerRegistry.RegisterForNavigation<HistoryPage, HistoryPageViewModel>();containerRegistry.RegisterForNavigation<PetTabbedPage, PetTabbedPageViewModel>();}
+            containerRegistry.RegisterForNavigation<PetsPage, PetsPageViewModel>();            
+            containerRegistry.RegisterForNavigation<PetPage, PetPageViewModel>();
+            containerRegistry.RegisterForNavigation<HistoriesPage, HistoriesPageViewModel>();
+            containerRegistry.RegisterForNavigation<HistoryPage, HistoryPageViewModel>();
+            containerRegistry.RegisterForNavigation<PetTabbedPage, PetTabbedPageViewModel>();
+            containerRegistry.RegisterForNavigation<VeterinaryMasterDetailPage, VeterinaryMasterDetailPageViewModel>();
+            containerRegistry.RegisterForNavigation<AgendaPage, AgendaPageViewModel>();
+            containerRegistry.RegisterForNavigation<MapPage, MapPageViewModel>();
+            containerRegistry.RegisterForNavigation<ProfilePage, ProfilePageViewModel>();
+            containerRegistry.RegisterForNavigation<RegisterPage, RegisterPageViewModel>();
+            containerRegistry.RegisterForNavigation<RememberPassword, RememberPasswordViewModel>();
+            containerRegistry.RegisterForNavigation<WhatsappPage, WhatsappPageViewModel>();
+            containerRegistry.RegisterForNavigation<ChangePasswordPage, ChangePasswordPageViewModel>();
+            containerRegistry.RegisterForNavigation<AddEditPet, AddEditPetViewModel>();
+        }
     }
 }

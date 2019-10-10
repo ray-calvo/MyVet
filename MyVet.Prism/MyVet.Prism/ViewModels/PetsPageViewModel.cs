@@ -1,5 +1,9 @@
-﻿using MyVet.Common.Models;
+﻿using MyVet.Common.Helpers;
+using MyVet.Common.Models;
+using Newtonsoft.Json;
+using Prism.Commands;
 using Prism.Navigation;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -10,13 +14,18 @@ namespace MyVet.Prism.ViewModels
         private readonly INavigationService _navigationService;
         private OwnerResponse _owner;
         private ObservableCollection<PetItemViewModel> _pets;
+        private DelegateCommand _addPetCommand;
+
 
         public PetsPageViewModel(
             INavigationService navigationService) : base(navigationService)
         {
             _navigationService = navigationService;
             Title = "Pets";
+            LoadOwner();
         }
+        public DelegateCommand AddPetCommand => _addPetCommand ?? (_addPetCommand = new DelegateCommand(AddPet));
+
 
         public ObservableCollection<PetItemViewModel> Pets
         {
@@ -24,37 +33,30 @@ namespace MyVet.Prism.ViewModels
             set => SetProperty(ref _pets, value);
         }
 
-        //public override void OnNavigatingTo(INavigationParameters parameters)
-        //{
-        //    base.OnNavigatingTo(parameters);
+       
 
-        //    if (parameters.ContainsKey("owner"))
-        //    {
-        //        _owner = parameters.GetValue<OwnerResponse>("owner");
-        //        Title = $"Pets of: {_owner.FullName}";
-        //        Pets = new ObservableCollection<PetResponse>(_owner.Pets);
-        //    }
-        //}
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        private void LoadOwner()
         {
-            base.OnNavigatedTo(parameters);
-
-            if (parameters.ContainsKey("owner"))
+            _owner = JsonConvert.DeserializeObject<OwnerResponse>(Settings.Owner);
+            Title = $"Pets of: {_owner.FullName}";
+            Pets = new ObservableCollection<PetItemViewModel>(_owner.Pets.Select(p => new PetItemViewModel(_navigationService)
             {
-                _owner = parameters.GetValue<OwnerResponse>("owner");
-                Title = $"Pets of: {_owner.FullName}";
-                Pets = new ObservableCollection<PetItemViewModel>(_owner.Pets.Select(p => new PetItemViewModel(_navigationService)
-                { 
-                    Born = p.Born,
-                    Histories = p.Histories,
-                    Id = p.Id,
-                    ImageUrl = p.ImageUrl,
-                    Name = p.Name,
-                    PetType = p.PetType,
-                    Race = p.Race,
-                    Remarks = p.Remarks
-                }).ToList());
-            }
+                Born = p.Born,
+                Histories = p.Histories,
+                Id = p.Id,
+                ImageUrl = p.ImageUrl,
+                Name = p.Name,
+                PetType = p.PetType,
+                Race = p.Race,
+                Remarks = p.Remarks
+            }).ToList());
         }
+
+        private async void AddPet()
+        {
+            await _navigationService.NavigateAsync("AddEditPet");
+        }
+
+
     }
 }
