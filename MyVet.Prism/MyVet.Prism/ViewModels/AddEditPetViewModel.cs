@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Xamarin.Forms;
+using Plugin.Media.Abstractions;
+using Plugin.Media;
 
 namespace MyVet.Prism.ViewModels
 {
@@ -24,6 +26,11 @@ namespace MyVet.Prism.ViewModels
         private readonly IApiService _apiService;
         private ObservableCollection<PetTypeResponse> _petTypes;
         private PetTypeResponse _petType;
+        private MediaFile _file;
+        private DelegateCommand _changeImageCommand;
+
+
+
 
         public AddEditPetViewModel(
             INavigationService navigationService,
@@ -35,6 +42,9 @@ namespace MyVet.Prism.ViewModels
 
 
         }
+
+        public DelegateCommand ChangeImageCommand => _changeImageCommand ?? (_changeImageCommand = new DelegateCommand(ChangeImageAsync));
+
         public bool IsRunning
         {
             get => _isRunning;
@@ -139,6 +149,50 @@ namespace MyVet.Prism.ViewModels
                 PetType = PetTypes.FirstOrDefault(pt => pt.Name == Pet.PetType);
             }
         }
+
+        private async void ChangeImageAsync()
+        {
+            await CrossMedia.Current.Initialize();
+
+            var source = await Application.Current.MainPage.DisplayActionSheet(
+                "Where do you want get the picture from?",
+                "Cancel",
+                null,
+                "From Gallery",
+                "From Camera");
+
+            if (source == "Cancel")
+            {
+                _file = null;
+                return;
+            }
+
+            if (source == "From Camera")
+            {
+                _file = await CrossMedia.Current.TakePhotoAsync(
+                    new StoreCameraMediaOptions
+                    {
+                        Directory = "Sample",
+                        Name = "test.jpg",
+                        PhotoSize = PhotoSize.Small,
+                    }
+                );
+            }
+            else
+            {
+                _file = await CrossMedia.Current.PickPhotoAsync();
+            }
+
+            if (_file != null)
+            {
+                ImageSource = ImageSource.FromStream(() =>
+                {
+                    var stream = _file.GetStream();
+                    return stream;
+                });
+            }
+        }
+
 
     }
 }
