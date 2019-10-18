@@ -7,7 +7,7 @@ using Syncfusion.SfBusyIndicator.XForms.Droid;
 using Android.Runtime;
 using Plugin.CurrentActivity;
 using Plugin.Permissions;
-
+using Acr.UserDialogs;
 
 namespace MyVet.Prism.Droid
 {
@@ -33,6 +33,7 @@ namespace MyVet.Prism.Droid
             global::Xamarin.Forms.FormsMaterial.Init(this, bundle);
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
             new SfBusyIndicatorRenderer();
+            UserDialogs.Init(this);
 
             LoadApplication(new App(new AndroidInitializer()));
         }

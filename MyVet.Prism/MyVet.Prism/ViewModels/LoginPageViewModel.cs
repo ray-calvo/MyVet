@@ -1,4 +1,5 @@
 ﻿using System;
+using Acr.UserDialogs;
 using MyVet.Common.Helpers;
 using MyVet.Common.Models;
 using MyVet.Common.Services;
@@ -72,7 +73,8 @@ namespace MyVet.Prism.ViewModels
                 return;
             }
 
-            IsRunning = true;
+            //IsRunning = true;
+            UserDialogs.Instance.ShowLoading("Cargando...");
             IsEnabled = false;
 
             var url = App.Current.Resources["UrlAPI"].ToString();
@@ -80,7 +82,8 @@ namespace MyVet.Prism.ViewModels
             if (!connection)
             {
                 IsEnabled = true;
-                IsRunning = false;
+                //IsRunning = false;
+                UserDialogs.Instance.HideLoading();
                 await App.Current.MainPage.DisplayAlert("Error", "Check the internet connection.", "Accept");
                 return;
             }
@@ -98,7 +101,8 @@ namespace MyVet.Prism.ViewModels
             if (!response.IsSuccess)
             {
                 IsEnabled = true;
-                IsRunning = false;
+                //IsRunning = false;
+                UserDialogs.Instance.HideLoading();
                 await App.Current.MainPage.DisplayAlert("Error", "User or password incorrect.", "Accept");
                 Password = string.Empty;
                 return;
@@ -115,7 +119,8 @@ namespace MyVet.Prism.ViewModels
             if (!response2.IsSuccess)
             {
                 IsEnabled = true;
-                IsRunning = false;
+                //IsRunning = false;
+                UserDialogs.Instance.HideLoading();
                 await App.Current.MainPage.DisplayAlert("Error", "This user have a big problem, call support", "Accept");
                 return;
             }
@@ -128,7 +133,8 @@ namespace MyVet.Prism.ViewModels
            
 
             IsEnabled = true;
-            IsRunning = false;
+            //IsRunning = false;
+            UserDialogs.Instance.HideLoading();
 
             await _navigationService.NavigateAsync("/VeterinaryMasterDetailPage/NavigationPage/PetsPage");
 

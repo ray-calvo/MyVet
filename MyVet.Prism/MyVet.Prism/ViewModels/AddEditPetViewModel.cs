@@ -12,6 +12,7 @@ using System.Linq;
 using Xamarin.Forms;
 using Plugin.Media.Abstractions;
 using Plugin.Media;
+using Acr.UserDialogs;
 
 namespace MyVet.Prism.ViewModels
 {
@@ -118,7 +119,8 @@ namespace MyVet.Prism.ViewModels
             if (!connection)
             {
                 IsEnabled = true;
-                IsRunning = false;
+                //IsRunning = false;
+                UserDialogs.Instance.HideLoading();
                 await App.Current.MainPage.DisplayAlert("Error", "Check the internet connection.", "Accept");
                 await _navigationService.GoBackAsync();
                 return;
@@ -153,14 +155,19 @@ namespace MyVet.Prism.ViewModels
         private async void ChangeImageAsync()
         {
             await CrossMedia.Current.Initialize();
-
+            //var cfg = new ActionSheetConfig()
+            //    .SetTitle("**** my Test Title ***")
+            //    .SetMessage("Where do you want get the picture from?")
+            //    .Add("From Gallery", () => this.Result($"Option Default Selected"), "icon.png")
+            //    .Add("From Gallery", () => this.Result($"Option E-Mail Selected"), "icon.png")
+            //    .SetUseBottomSheet(useBottomSheet);
             var source = await Application.Current.MainPage.DisplayActionSheet(
                 "Where do you want get the picture from?",
                 "Cancel",
                 null,
                 "From Gallery",
                 "From Camera");
-
+            
             if (source == "Cancel")
             {
                 _file = null;

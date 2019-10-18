@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Acr.UserDialogs;
 using MyVet.Common.Helpers;
 using MyVet.Common.Models;
 using MyVet.Common.Services;
@@ -54,7 +55,8 @@ namespace MyVet.Prism.ViewModels
                 return;
             }
 
-            IsRunning = true;
+            //IsRunning = true;
+            UserDialogs.Instance.ShowLoading("Changing...");
             IsEnabled = false;
 
             var owner = JsonConvert.DeserializeObject<OwnerResponse>(Settings.Owner);
@@ -76,7 +78,8 @@ namespace MyVet.Prism.ViewModels
                 "bearer",
                 token.Token);
 
-            IsRunning = false;
+            //IsRunning = false;
+            UserDialogs.Instance.HideLoading();
             IsEnabled = true;
 
             if (!response.IsSuccess)

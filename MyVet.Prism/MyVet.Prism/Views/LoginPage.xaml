@@ -92,7 +92,7 @@
                 
                 
             </StackLayout>
-            <busyindicator:SfBusyIndicator  
+            <!--<busyindicator:SfBusyIndicator  
                 	AnimationType="Gear"
                 	AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
                 	AbsoluteLayout.LayoutFlags="All"
@@ -103,7 +103,7 @@
                 	Title="Loading..."
                 	VerticalOptions="Center"
                 	ViewBoxWidth="80"
-                	ViewBoxHeight="80"  />
+                	ViewBoxHeight="80"  />-->
         </AbsoluteLayout>        
     </ScrollView>
 </ContentPage>

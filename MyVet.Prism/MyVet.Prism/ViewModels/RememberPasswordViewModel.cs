@@ -1,4 +1,5 @@
-﻿using MyVet.Common.Helpers;
+﻿using Acr.UserDialogs;
+using MyVet.Common.Helpers;
 using MyVet.Common.Models;
 using MyVet.Common.Services;
 using Prism.Commands;
@@ -54,7 +55,8 @@ namespace MyVet.Prism.ViewModels
                 return;
             }
 
-            IsRunning = true;
+            //IsRunning = true;
+            UserDialogs.Instance.ShowLoading("Recovering...");
             IsEnabled = false;
 
             var request = new EmailRequest
@@ -69,7 +71,8 @@ namespace MyVet.Prism.ViewModels
                 "/Account/RecoverPassword",
                 request);
 
-            IsRunning = false;
+            //IsRunning = false;
+            UserDialogs.Instance.HideLoading();
             IsEnabled = true;
 
             if (!response.IsSuccess)

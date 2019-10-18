@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Acr.UserDialogs;
 using MyVet.Common.Helpers;
 using MyVet.Common.Models;
 using MyVet.Common.Services;
@@ -63,7 +64,8 @@ namespace MyVet.Prism.ViewModels
             {
                 return;
             }
-            IsRunning = true;
+            //IsRunning = true;
+            UserDialogs.Instance.ShowLoading("Loading...");
             IsEnabled = false;
 
             var request = new UserRequest
@@ -84,7 +86,8 @@ namespace MyVet.Prism.ViewModels
                 "/Account",
                 request);
 
-            IsRunning = false;
+            //IsRunning = false;
+            UserDialogs.Instance.HideLoading();
             IsEnabled = true;
 
             if (!response.IsSuccess)

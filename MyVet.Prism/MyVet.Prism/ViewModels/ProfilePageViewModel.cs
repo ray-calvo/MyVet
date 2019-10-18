@@ -1,5 +1,7 @@
-﻿using MyVet.Common.Helpers;
+﻿using Acr.UserDialogs;
+using MyVet.Common.Helpers;
 using MyVet.Common.Models;
+using MyVet.Common.Services;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -19,14 +21,17 @@ namespace MyVet.Prism.ViewModels
         private DelegateCommand _saveCommand;
         private DelegateCommand _changePasswordCommand;
         private readonly INavigationService _navigationService;
+        private readonly IApiService _apiService;
 
         public ProfilePageViewModel(
-            INavigationService navigationService) : base(navigationService)
+            INavigationService navigationService,
+            IApiService apiService) : base(navigationService)
         {
             Title = "Modify Profile";
             IsEnabled = true;
             Owner = JsonConvert.DeserializeObject<OwnerResponse>(Settings.Owner);
             _navigationService = navigationService;
+            _apiService = apiService;
         }
         public DelegateCommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(Save));
         public DelegateCommand ChangePasswordCommand => _changePasswordCommand ?? (_changePasswordCommand = new DelegateCommand(ChangePassword));
@@ -57,6 +62,53 @@ namespace MyVet.Prism.ViewModels
             {
                 return;
             }
+            //IsRunning = true;
+            UserDialogs.Instance.ShowLoading("Saving...");
+            IsEnabled = false;
+
+            var userRequest = new UserRequest
+            {
+                Address = Owner.Address,
+                Document = Owner.Document,
+                Email = Owner.Email,
+                FirstName = Owner.FirstName,
+                LastName = Owner.LastName,
+                Password = "123456", // It doesn't matter what is sent here. It is only for the model to be valid
+                Phone = Owner.PhoneNumber
+            };
+
+            var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+
+            var url = App.Current.Resources["UrlAPI"].ToString();
+            var response = await _apiService.PutAsync(
+                url,
+                "api",
+                "/Account",
+                userRequest,
+                "bearer",
+                token.Token);
+
+            //IsRunning = false;
+            UserDialogs.Instance.HideLoading();
+            IsEnabled = true;
+
+            if (!response.IsSuccess)
+            {
+                await App.Current.MainPage.DisplayAlert(
+                    "Error",
+                    response.Message,
+                    "Accept");
+                return;
+            }
+
+            Settings.Owner = JsonConvert.SerializeObject(Owner);
+
+            await App.Current.MainPage.DisplayAlert(
+                "Ok",
+                "User updated succesfully",
+                "Accept");
+            
+
         }
 
         private async Task<bool> ValidateData()

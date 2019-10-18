@@ -5,12 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="17.2.0.51" />
+    <PackageReference Include="Acr.UserDialogs" Version="7.0.32" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="17.3.0.14" />
     <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.5" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
-    <PackageReference Include="Xamarin.Forms" Version="4.2.0.778463" />
+    <PackageReference Include="Xamarin.Forms" Version="4.2.0.848062" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1367" />
-    <PackageReference Include="Xamarin.Forms.Visual.Material" Version="4.2.0.778463" />
+    <PackageReference Include="Xamarin.Forms.Visual.Material" Version="4.2.0.848062" />
   </ItemGroup>
 
   <ItemGroup>
