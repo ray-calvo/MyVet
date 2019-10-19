@@ -39,7 +39,7 @@ namespace MyVet.Prism.ViewModels
                 new Menu
                 {
                     Icon = "ic_map",
-                    PageName = "MapPage",
+                    PageName = "MapasPage",
                     Title = "Map"
                 },
 

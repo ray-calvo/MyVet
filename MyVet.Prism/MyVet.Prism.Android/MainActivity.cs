@@ -30,6 +30,8 @@ namespace MyVet.Prism.Droid
 
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            Xamarin.FormsMaps.Init(this, bundle);
+
             global::Xamarin.Forms.FormsMaterial.Init(this, bundle);
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
             new SfBusyIndicatorRenderer();

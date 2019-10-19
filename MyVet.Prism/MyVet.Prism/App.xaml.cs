@@ -44,6 +44,7 @@ namespace MyVet.Prism
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.Register<IApiService, ApiService>();
+            containerRegistry.Register<IGeolocatorService, GeolocatorService>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<PetsPage, PetsPageViewModel>();            
@@ -53,13 +54,15 @@ namespace MyVet.Prism
             containerRegistry.RegisterForNavigation<PetTabbedPage, PetTabbedPageViewModel>();
             containerRegistry.RegisterForNavigation<VeterinaryMasterDetailPage, VeterinaryMasterDetailPageViewModel>();
             containerRegistry.RegisterForNavigation<AgendaPage, AgendaPageViewModel>();
-            containerRegistry.RegisterForNavigation<MapPage, MapPageViewModel>();
+            containerRegistry.RegisterForNavigation<MapPageNuske, MapPageNuskeViewModel>();
             containerRegistry.RegisterForNavigation<ProfilePage, ProfilePageViewModel>();
             containerRegistry.RegisterForNavigation<RegisterPage, RegisterPageViewModel>();
             containerRegistry.RegisterForNavigation<RememberPassword, RememberPasswordViewModel>();
             containerRegistry.RegisterForNavigation<WhatsappPage, WhatsappPageViewModel>();
             containerRegistry.RegisterForNavigation<ChangePasswordPage, ChangePasswordPageViewModel>();
             containerRegistry.RegisterForNavigation<AddEditPet, AddEditPetViewModel>();
+            containerRegistry.RegisterForNavigation<MapPageNuske, MapPageViewModel>();
+            containerRegistry.RegisterForNavigation<MapasPage, MapasPageViewModel>();
         }
     }
 }
